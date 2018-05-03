@@ -24,8 +24,8 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-    canvas.width = 505;
-    canvas.height = 606;
+    canvas.width = 805;
+    canvas.height = 706;
     doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -79,7 +79,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        
     }
 
     /* This is called by the update function and loops through all of the
@@ -94,6 +94,11 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+        monster.update(dt);
+        message1.update();
+        message2.update();
+        message3.update();
+        message4.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -107,15 +112,15 @@ var Engine = (function(global) {
          * for that particular row of the game level.
          */
         var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
+                'images/grass-block.png',   // Top row is water
+                'images/water-block.png',   // Row 1 of 3 of stone
+                'images/water-block.png',   // Row 2 of 3 of stone
+                'images/water-block.png',   // Row 3 of 3 of stone
+                'images/water-block.png',   // Row 1 of 2 of grass
                 'images/grass-block.png'    // Row 2 of 2 of grass
             ],
             numRows = 6,
-            numCols = 5,
+            numCols = 7,
             row, col;
         
         // Before drawing, clear existing canvas
@@ -154,6 +159,20 @@ var Engine = (function(global) {
         });
 
         player.render();
+        princess.render();
+        lure.render();
+        monster.render();
+        surf.render();
+        tree1.render();
+        tree2.render();
+        tree3.render();
+        fire.render();
+        sign.render();
+        message1.render();
+        message2.render();
+        message3.render();
+        message4.render();
+        
     }
 
     /* This function does nothing but it could have been a good place to
@@ -173,7 +192,46 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/char-boy2.png',
+        'images/char-boy-surfing.png',
+        'images/star.png',
+        'images/trap.png',
+        'images/skeleton.png',
+        'images/char-princess-girl.png',
+        'images/enemy-bug-win.png',
+        'images/char-boy-hero.png',
+        'images/lure.png',
+        'images/wood2.png',
+        'images/char-drown1.png',
+        'images/char-drown2.png',
+        'images/char-drown3.png',
+        'images/enemy-bug-angry.png',
+        'images/tree1.png',
+        'images/tree2.png',
+        'images/fireplace.png',
+        'images/heroes.png',
+        'images/sign1.png',
+        'images/sign2.png',
+        'images/skeleton2.png',
+        'images/crown.png',
+        'images/enemy-angry2.png',
+        'images/enemy-angry3.png',
+        'images/rock0.png',
+        'images/rock1.png',
+        'images/rock2.png',
+        'images/rock3.png',
+        'images/bubble1.png',
+        'images/bubble2.png',
+        'images/bubble3.png',
+        'images/bubble4.png',
+        'images/bubble4bis.png',
+        'images/bubble5.png',
+        'images/bubble6.png',
+        
+        
+        
+
     ]);
     Resources.onReady(init);
 

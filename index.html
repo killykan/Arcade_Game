@@ -4,8 +4,45 @@
     <meta charset="UTF-8">
     <title>Effective JavaScript: Frogger</title>
     <link rel="stylesheet" href="css/style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Frooger-like Game Project">
+    <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
 </head>
 <body>
+	
+	<header>
+		<h1>Princess in danger !!</h1>
+	</header>
+
+	<section class="info-box">
+    	<h2>Instructions to play</h2>
+    	<ul>
+    		<li>You play the little boy at the bottom left!</li>
+    		<li>You must save the princess before the monster reaches her.</li>
+    		<li>Your character can't swim, You must find a way to help him cross the river.</li>
+    		<li>If you try to swim, your little boy will drown !</li>
+    		<li>If your character gets hit by a rock, or by the monster, the game resets.</li>
+    			
+    		<li>If the princess is eaten, the game will reset.</li>
+    		<li>Beware of the monster, if you get too close to the princess, its speed will change.</li>
+    		<li>Once you rescued the princess, head back to the shore, and reach the firecamp.</li>
+    		<li>Enjoy !!</li>
+    	</ul>
+    	<h3>Please hit the button to refresh the game</h3>
+    	<button id="refresh" onclick="document.location.reload(false)"> Start </button>
+    </section>
+
+	<div class="bgd">
+    	<video autoplay muted>
+  			<source src="images/Ink_18___4k_res.mp4" type="video/mp4">
+		</video>
+    </div>
+
+    
+
+
+
+    
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
