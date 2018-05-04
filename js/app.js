@@ -25,27 +25,28 @@ Monster.prototype.render = function() {
 };
 
 Monster.prototype.reset3 = function(){
-    monster.x = 0;
-    monster.y = -20;                                        /** Reset the monster if it collides with **/
-    monster.sprite = 'images/enemy-bug.png';                 /** the player or the princess objects **/
-    monster.speed = 30;
+    this.x = 0;
+    this.y = -20;                                        /** Reset the monster if it collides with **/
+    this.sprite = 'images/enemy-bug.png';                 /** the player or the princess objects **/
+    this.speed = 30;
 };
 
 Monster.prototype.reset4 = function(){                      /** Change the monster position of the monster **/
-    monster.x = 0;                                              /** if it collides with the lure object **/
-    monster.y = 410;                                            
-    monster.speed = 65;
+    var _this = this;
+    this.x = 0;                                              /** if it collides with the lure object **/
+    this.y = 410;                                            
+    this.speed = 65;
     setTimeout(function(){
-        monster.speed = 30;
-        monster.sprite = 'images/enemy-angry2.png';
+        _this.speed = 30;
+        _this.sprite = 'images/enemy-angry2.png';
         setTimeout(function(){
-            monster.speed = 10;
-            monster.sprite = 'images/enemy-angry3.png';
+            _this.speed = 10;
+            _this.sprite = 'images/enemy-angry3.png';
             setTimeout(function(){
-                monster.speed = 0;
-                monster.sprite = 'images/skeleton2.png';
-                monster.width = 0;
-                monster.height = 0;
+                _this.speed = 0;
+                _this.sprite = 'images/skeleton2.png';
+                _this.width = 0;
+                _this.height = 0;
             },2000)
         },2500)
     },4000)
@@ -66,32 +67,33 @@ Monster.prototype.checkCollisions2 = function(){   /* MDN's Axis-Aligned Boundin
         if(player.sprite = 'images/char-boy-hero.png'){                                /** Collision function **/
             player.sprite = 'images/skeleton.png';                     /** if the monster object collides with an other object **/
             player.reset();                                          /** mentionned in the conditionnals, then changes occure : **/
-            princess.reset2();                                  /** updates of positions, images,... depending on the collided object**/
+            player.reset2();                                  /** updates of positions, images,... depending on the collided object**/
             princess.y = -20;
             lure.y = -500;
-            monster.reset3();
+            this.reset3();
         };
     }
     else if(princess.x < this.x + this.width &&
         princess.x + princess.width > this.x &&
         princess.y < this.y + this.height &&
         princess.height + princess.y > this.y){
+        var _this = this;
         princess.sprite = 'images/skeleton.png';
-        monster.sprite = 'images/enemy-bug-win.png';
+        this.sprite = 'images/enemy-bug-win.png';
         setTimeout(function(){
            player.reset();
-           princess.reset2();
-           monster.reset3();
+           player.reset2();
+           _this.reset3();
         },2000);
     }
     else if(lure.x < this.x + this.width &&
         lure.x + lure.width > this.x &&
         lure.y < this.y + this.height &&
         lure.height + lure.y > this.y){
-        monster.sprite = 'images/enemy-bug-angry.png';
+        var _this = this;
+        this.sprite = 'images/enemy-bug-angry.png';
         setTimeout(function(){
-           monster.reset4(); 
-           
+           _this.reset4(); 
         },2000);
     }
 };
@@ -133,7 +135,7 @@ Enemy.prototype.checkCollisions = function(){   /* MDN's Axis-Aligned Bounding B
         setTimeout(function(){
             player.reset();
             monster.reset3();
-            princess.reset2();
+            player.reset2();
         },1500);
     }
 };
@@ -157,6 +159,7 @@ var Player = function(x ,y){
     this.height = 56;
     this.sprite = 'images/char-boy.png';
 }
+
 
 Player.prototype.update = function(dt){
     
@@ -202,7 +205,6 @@ Player.prototype.reset = function(){
 }
 
 Player.prototype.reset2 = function(){
-    princess.sprite = 'images/char-princess-girl.png';
     princess.x = 600;
     princess.y = -20;
     lure.y = -500;
@@ -228,9 +230,10 @@ Player.prototype.offCanvas = function(){
 
 Player.prototype.saveThePrincess = function(){
     if((this.x === 600 || this.x === 605) && (this.y === -20 || this.y === -10)){
+        var __this = this;
         this.sprite = 'images/char-boy-hero.png';
         setTimeout(function(){
-            player.sprite = 'images/heroes.png'
+            __this.sprite = 'images/heroes.png'
         },800)
         princess.y = -500;                                         /** when the player reaches the princess **/
         setTimeout(function(){                                      /** the sprite image changes two times **/                            
@@ -251,11 +254,12 @@ Player.prototype.getTheSurf = function(){
 
 Player.prototype.drown = function(){
     if (this.y === 350 && this.sprite === 'images/char-boy.png'){
+        var __this = this;
         setTimeout(function(){
-            player.sprite = 'images/char-drown3.png';                    /** when the player reaches a certain position, the sprite's image is updated **/
+            __this.sprite = 'images/char-drown3.png';                    /** when the player reaches a certain position, the sprite's image is updated **/
         },500);                                                                   /** and afeter a certain time the player is reset **/
         setTimeout(function(){                                                
-           player.reset();
+           __this.reset();
         },1500);
     }
 }
@@ -269,9 +273,9 @@ Player.prototype.onShore = function(){
 
 Player.prototype.safe = function(){
     if((this.x === 0 || this.x === 60) && (this.sprite === 'images/char-boy-hero.png')){
-        player.x = 0;
-        player.y = 440;                                                 
-        player.sprite = 'images/char-boy2.png';                                    /** updates the player and princess positions when **/
+        this.x = 0;
+        this.y = 440;                                                 
+        this.sprite = 'images/char-boy2.png';                                    /** updates the player and princess positions when **/
         princess.x = 30;                                                                  /** the player reaches the camp. **/
         princess.y = 440;                                                    /** calls the messagePlayer4() method of the Objects constructor**/
         message4.messagePlayer4();
@@ -279,14 +283,22 @@ Player.prototype.safe = function(){
 }
 
 var player = new Player(0, 440);
-var princess = new Player(600, -20);
-var lure = new Player(600,-500);
-var surf = new Player(450, 420);
 
+                    /*constructor function for the princess object */
 
+var Queen = function(x, y) {
+    this.x = x;
+    this.y = y;
+    this.width = 50;
+    this.height = 56;
+}
+
+Queen.prototype.render = function(){
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
+
+var princess = new Queen(600, -20);
 princess.sprite = 'images/char-princess-girl.png';
-lure.sprite = 'images/lure.png';
-surf.sprite = 'images/wood2.png';
 
                     /* The Objects super constructor */
 
@@ -294,6 +306,7 @@ var Objects = function(x, y){
     this.x = x;
     this.y = y;
 }
+
 
 Objects.prototype.render = function() {
      ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -310,55 +323,63 @@ Objects.prototype.update = function(){
 };
 
 Objects.prototype.messagePlayer = function(){
+    var ___this = this;
     setTimeout(function(){
-        message1.x = player.x + 10;                        /** displays the message1's sprite in function of the player's position **/
-        message1.y = player.y - 40;                              /** and updates the message1's sprite after a certain time **/ 
+        ___this.x = player.x + 10;                        /** displays the message1's sprite in function of the player's position **/
+        ___this.y = player.y - 40;                              /** and updates the message1's sprite after a certain time **/ 
     },2000);                                               
     setTimeout(function(){
-            message1.sprite = 'images/bubble2.png';
-        },6000);
+        ___this.sprite = 'images/bubble2.png';
+    },6000);
 }
 
 Objects.prototype.messagePlayer2 = function(){
-    
+    var ___this = this;
     setTimeout(function(){
-        message2.x = player.x + 10;                         // see the messagePlayer() method above
-        message2.y = player.y - 40;
+        ___this.x = player.x + 10;                         // see the messagePlayer() method above
+        ___this.y = player.y - 40;
     },9500)
 }
 
 Objects.prototype.messagePlayer3 = function(){
     if((player.y > 380 && player.x > 450) && (player.sprite === 'images/heroes.png' || player.sprite === 'images/char-boy-hero.png')){
-        message3.x = player.x + 40;
-        message3.y = player.y - 40;                                                /** diplays the message3's sprite on the screen  **/
+        this.x = player.x + 40;
+        this.y = player.y - 40;
+        var ___this = this;                                                /** diplays the message3's sprite on the screen  **/
         setTimeout(function(){                                                      /** only if the player is at a certain position **/
-                message3.sprite = 'images/bubble4bis.png';                    /** and if its sprite's image corresponds to what required **/
+            ___this.sprite = 'images/bubble4bis.png';                    /** and if its sprite's image corresponds to what required **/
         },10000)
     }
 }
 
 Objects.prototype.messagePlayer4 = function(){
-    message4.x = princess.x + 30;                            // see the messagePlayer() method above
-    message4.y = princess.y - 40;
+    var ___this = this;
+    this.x = princess.x + 30;                            // see the messagePlayer() method above
+    this.y = princess.y - 40;
     setTimeout(function(){
-            message4.sprite = 'images/bubble6.png';
+        ___this.sprite = 'images/bubble6.png';
     },3000)
 }
 
 Objects.prototype.bubbleReset = function(){
     if(player.x > 200 || player.sprite !== 'images/char-boy.png'){              /** sets the message2 and message1 off canvas (to hide it) **/
-        message2.x = -500;                                                              /** if the player is at a certain position  **/
-        message1.x = -500;                                                      /** or if its sprite's image is different to what mentionned**/
+        this.x = -500;                                                              /** if the player is at a certain position  **/
+                                                                              /** or if its sprite's image is different to what mentionned**/
     }
-
 }
 
 Objects.prototype.bubbleReset2 = function(){
     if(player.x < 450 && player.sprite === 'images/char-boy-hero.png'){          // see the bubbleReset above
-        message3.x = -500;
+        this.x = -500;
     }
 }
 
+var lure = new Objects(600,-500);
+lure.sprite = 'images/lure.png';
+lure.width = 50;
+lure.height = 56;
+var surf = new Objects(450, 420);
+surf.sprite = 'images/wood2.png';
 var tree1 = new Objects(180, 350);
 tree1.sprite = 'images/tree1.png';
 var tree2 = new Objects(320,420);
